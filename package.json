@@ -15,7 +15,8 @@
     "openai": "^3.2.1",
     "postcss": "^8.4.21",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "eslint": "8.36.0",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Pill = ({ text, onClick, onRemove, isSelected, className }) => {
   return (
@@ -26,25 +27,23 @@ export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, clas
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      const newPill = { text: inputValue, subpoints: [], subsubpoints: [] };
-      const { level, mainIndex, subIndex } = selectedPill;
+      const newPill = { id: uuidv4(), text: inputValue, subpoints: [], subsubpoints: [] };
+      const { level, mainId, subId } = selectedPill;
 
       if (level === null) {
         setPills([...pills, newPill]);
       } else if (level === "main") {
         setPills(
-          pills.map((pill, pillIndex) =>
-            pillIndex === mainIndex ? { ...pill, subpoints: [...pill.subpoints, newPill] } : pill
-          )
+          pills.map((pill) => (pill.id === mainId ? { ...pill, subpoints: [...pill.subpoints, newPill] } : pill))
         );
       } else if (level === "sub") {
         setPills(
-          pills.map((pill, pillIndex) =>
-            pillIndex === mainIndex
+          pills.map((pill) =>
+            pill.id === mainId
               ? {
                   ...pill,
-                  subpoints: pill.subpoints.map((subpoint, currSubIndex) =>
-                    currSubIndex === subIndex
+                  subpoints: pill.subpoints.map((subpoint) =>
+                    subpoint.id === subId
                       ? { ...subpoint, subsubpoints: [...subpoint.subsubpoints, newPill] }
                       : subpoint
                   ),
@@ -57,28 +56,26 @@ export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, clas
     }
   };
 
-  const removePill = (level, index) => {
-    if (level === "main") {
-      setPills(pills.filter((_, pillIndex) => pillIndex !== index));
-    } else if (level === "sub") {
+  const removePill = (level, mainId, subId = null, subsubId = null) => {
+    if (level === null) {
+      setPills(pills.filter((pill) => pill.id !== mainId));
+    } else if (level === "main") {
       setPills(
-        pills.map((pill, pillIndex) =>
-          pillIndex === selectedPill.index
-            ? { ...pill, subpoints: pill.subpoints.filter((_, subIndex) => subIndex !== index) }
-            : pill
+        pills.map((pill) =>
+          pill.id === mainId ? { ...pill, subpoints: pill.subpoints.filter((subpoint) => subpoint.id !== subId) } : pill
         )
       );
-    } else if (level === "subsub") {
+    } else if (level === "sub") {
       setPills(
-        pills.map((pill, pillIndex) =>
-          pillIndex === selectedPill.mainIndex
+        pills.map((pill) =>
+          pill.id === mainId
             ? {
                 ...pill,
-                subpoints: pill.subpoints.map((subpoint, subIndex) =>
-                  subIndex === selectedPill.subIndex
+                subpoints: pill.subpoints.map((subpoint) =>
+                  subpoint.id === subId
                     ? {
                         ...subpoint,
-                        subsubpoints: subpoint.subsubpoints.filter((_, subsubIndex) => subsubIndex !== index),
+                        subsubpoints: subpoint.subsubpoints.filter((subsubpoint) => subsubpoint.id !== subsubId),
                       }
                     : subpoint
                 ),
@@ -89,16 +86,16 @@ export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, clas
     }
   };
 
-  const pillClickHandler = (level, mainIndex, subIndex = null, subsubIndex = null) => {
+  const pillClickHandler = (level, mainId, subId = null, subsubId = null) => {
     if (
       selectedPill.level === level &&
-      selectedPill.mainIndex === mainIndex &&
-      selectedPill.subIndex === subIndex &&
-      selectedPill.subsubIndex === subsubIndex
+      selectedPill.mainId === mainId &&
+      selectedPill.subId === subId &&
+      selectedPill.subsubId === subsubId
     ) {
-      setSelectedPill({ level: null, mainIndex: null, subIndex: null, subsubIndex: null });
+      setSelectedPill({ level: null, mainId: null, subId: null, subsubId: null });
     } else {
-      setSelectedPill({ level, mainIndex, subIndex, subsubIndex });
+      setSelectedPill({ level, mainId, subId, subsubId });
     }
   };
 
@@ -108,46 +105,46 @@ export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, clas
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
+        onKeyPress={(e) => handleKeyPress(e, selectedPill.level, selectedPill.subId || selectedPill.mainId)}
         placeholder="Enter text and press Enter"
         className="border border-gray-300 px-2 py-1 rounded focus:outline-none focus:border-blue-500 w-full"
       />
       <div className="p-4 rounded max-w-7xl ">
-        {pills?.map((pill, pillIndex) => (
-          <div key={pillIndex} className="mb-4">
+        {pills?.map((pill) => (
+          <div key={pill.id} className="mb-4">
             <Pill
               text={pill.text}
-              onClick={() => pillClickHandler("main", pillIndex)}
-              onRemove={() => removePill("main", pillIndex)}
-              isSelected={selectedPill.level === "main" && selectedPill.mainIndex === pillIndex}
+              onClick={() => pillClickHandler("main", pill.id)}
+              onRemove={() => removePill(null, pill.id)}
+              isSelected={selectedPill.level === "main" && selectedPill.mainId === pill.id}
               className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm inline-flex items-center mb-2"
             />
             <div className="flex flex-wrap gap-2 ml-4">
-              {pill.subpoints.map((subpoint, subIndex) => (
-                <div key={subIndex} className="flex flex-col">
+              {pill.subpoints.map((subpoint) => (
+                <div key={subpoint.id} className="flex flex-col">
                   <Pill
                     text={subpoint.text}
-                    onClick={() => pillClickHandler("sub", pillIndex, subIndex)}
-                    onRemove={() => removePill("sub", subIndex)}
+                    onClick={() => pillClickHandler("sub", pill.id, subpoint.id)}
+                    onRemove={() => removePill("main", pill.id, subpoint.id)}
                     isSelected={
                       selectedPill.level === "sub" &&
-                      selectedPill.mainIndex === pillIndex &&
-                      selectedPill.subIndex === subIndex
+                      selectedPill.mainId === pill.id &&
+                      selectedPill.subId === subpoint.id
                     }
                     className="bg-green-500 text-white px-3 py-1 rounded-full text-sm inline-flex items-center mb-2"
                   />
                   <div className="flex flex-wrap gap-2 ml-4">
-                    {pill.subpoints[subIndex].subsubpoints.map((subsubpoint, subsubIndex) => (
+                    {subpoint.subsubpoints.map((subsubpoint) => (
                       <Pill
-                        key={subsubIndex}
+                        key={subsubpoint.id}
                         text={subsubpoint.text}
-                        onClick={() => pillClickHandler("subsub", pillIndex, subIndex)}
-                        onRemove={() => removePill("subsub", subsubIndex)}
+                        onClick={() => pillClickHandler("subsub", pill.id, subpoint.id, subsubpoint.id)}
+                        onRemove={() => removePill("sub", pill.id, subpoint.id, subsubpoint.id)}
                         isSelected={
                           selectedPill.level === "subsub" &&
-                          selectedPill.mainIndex === pillIndex &&
-                          selectedPill.subIndex === subIndex &&
-                          selectedPill.subsubIndex === subsubIndex
+                          selectedPill.mainId === pill.id &&
+                          selectedPill.subId === subpoint.id &&
+                          selectedPill.subsubId === subsubpoint.id
                         }
                         className="bg-indigo-500 text-white px-3 py-1 rounded-full text-sm inline-flex items-center"
                       />
