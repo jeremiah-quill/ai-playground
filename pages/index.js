@@ -14,7 +14,7 @@ export default function Home() {
       id: 2,
       title: "Whisp",
       description: "",
-      url: "/whisp",
+      url: "#",
       comingSoon: true,
     },
   ];
@@ -33,10 +33,16 @@ export default function Home() {
       </Head>
       <main className="flex flex-col min-h-[80vh] overflow-hidden mx-auto max-w-7xl px-4">
         <div className="flex-grow">
-          <section className=" shadow-md rounded-lg h-[200px] my-6 hero flex flex-col items-center justify-center py-12 bg-gradient-to-r from-[#ff8c00] to-[#ffa07a] text-white">
+          <section className="shadow-md rounded-lg h-[200px] my-6 hero flex flex-col gap-2 items-center justify-center py-12 bg-[#ff8c00]  text-white">
             <h2 className="text-2xl font-semibold p-4 text-center">
               Explore the power of OpenAI API through interactive experiments
             </h2>
+            <Link
+              className="bg-red-600 text-white px-6 py-2 rounded font-black uppercase text-sm"
+              target="_blank"
+              href="https://github.com/jeremiah-quill/ai-playground">
+              View Source
+            </Link>
           </section>
           <section className="experiments  max-w-7xl">
             <div className="grid sm:grid-cols-2 gap-4">
@@ -63,7 +69,7 @@ export default function Home() {
 const ExperimentCard = ({ experiment }) => {
   return (
     <Link
-      href={experiment.comingSoon ? "#" : experiment.url}
+      href={experiment.url}
       className={`relative card rounded shadow-md p-4 bg-blue-500 text-white ${
         experiment.comingSoon ? "cursor-not-allowed bg-opacity-50" : "cursor-pointer"
       }`}>
