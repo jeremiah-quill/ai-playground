@@ -1,37 +1,28 @@
 import Head from "next/head";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
-  const [response, setResponse] = useState(null);
-  const [styleInput, setStyleInput] = useState("");
-
-  async function getNames() {
-    setResponse("...loading");
-
-    const response = await fetch("/api/ai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ style: styleInput }),
-    });
-
-    const data = await response.json();
-
-    setResponse(data.text);
-
-    console.log("data in getNames", data);
-  }
-
-  function handleStyleInputChange(e) {
-    setStyleInput(e.target.value);
-  }
-
+  const experimentsData = [
+    {
+      id: 1,
+      title: "Jotmail",
+      description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
+      url: "/jotmail",
+      comingSoon: false,
+    },
+    {
+      id: 2,
+      title: "Whisp",
+      description: "",
+      url: "/whisp",
+      comingSoon: true,
+    },
+  ];
   return (
-    <div>
+    <>
       <Head>
-        <title>Baby Naimes</title>
-        <meta name="description" content="Baby name suggestions, by AI" />
+        <title>AI Playground</title>
+        <meta name="description" content="OpenAI API Experiments" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,24 +31,49 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-
-      <main className="max-w-4xl m-auto font-['Roboto Mono']">
-        <h1 className="text-red-500 font-bold text-5xl mb-8">Baby Naimes</h1>
-        <p className="pt-16 pb-8 text-3xl">
-          Please provide 5 baby names in the style of{" "}
-          <input
-            value={styleInput}
-            onChange={handleStyleInputChange}
-            className="p-2 italic  border-b border-slate-400 max-w-[250px]"
-            placeholder="Arctic Mayhem"
-          />
-          .
-        </p>
-        <button className="p-2 bg-slate-800 text-slate-100 font-bold" onClick={() => getNames()}>
-          Get names
-        </button>
-        <div className="p-2 pt-32 text-3xl ">{!response ? "No response yet." : response}</div>
+      <main className="flex flex-col min-h-[80vh] overflow-hidden mx-auto max-w-7xl px-4">
+        <div className="flex-grow">
+          <section className=" shadow-md rounded-lg h-[200px] my-6 hero flex flex-col items-center justify-center py-12 bg-gradient-to-r from-[#ff8c00] to-[#ffa07a] text-white">
+            <h2 className="text-2xl font-semibold p-4 text-center">
+              Explore the power of OpenAI API through interactive experiments
+            </h2>
+          </section>
+          <section className="experiments  max-w-7xl">
+            <div className="grid sm:grid-cols-2 gap-4">
+              {experimentsData.map((experiment) => (
+                <ExperimentCard key={experiment.id} experiment={experiment} />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
-    </div>
+      {/* <section className="flex flex-col items-center justify-center py-12 bg-gray-100">
+        <h3 className="text-2xl font-semibold mb-4">Get Started with OpenAI API</h3>
+        <p className="text-lg mb-6 text-center">
+          Follow our step-by-step guide to start experimenting with OpenAI API.
+        </p>
+        <Link className="cta-button bg-blue-600 text-white px-6 py-2 rounded" href="/getting-started">
+          Learn More
+        </Link>
+      </section> */}
+    </>
   );
 }
+
+const ExperimentCard = ({ experiment }) => {
+  return (
+    <Link
+      href={experiment.comingSoon ? "#" : experiment.url}
+      className={`relative card rounded shadow-md p-4 bg-blue-500 text-white ${
+        experiment.comingSoon ? "cursor-not-allowed bg-opacity-50" : "cursor-pointer"
+      }`}>
+      <h4 className="text-xl font-semibold mb-2">{experiment.title}</h4>
+      <p className=" mb-4">{experiment.description}</p>
+      {experiment.comingSoon && (
+        <div className="absolute inset-0 grid place-items-center text-slate-800 font-black text-3xl -rotate-12">
+          Coming soon!
+        </div>
+      )}
+    </Link>
+  );
+};

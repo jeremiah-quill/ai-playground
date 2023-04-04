@@ -2,10 +2,11 @@ import { ChatGPTAPI } from "chatgpt";
 
 const api = new ChatGPTAPI({
   apiKey: process.env.OPENAI_API_KEY,
-  // completionParams: {
-  //   temperature: 0.5,
-  //   top_p: 0.8
-  // },
+  completionParams: {
+    model: "gpt-3.5-turbo",
+    temperature: 0.3,
+    // top_p: 0.8
+  },
   debug: true,
   systemMessage: false,
 });
