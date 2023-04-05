@@ -19,7 +19,7 @@ export function Header() {
         !top && "bg-white backdrop-blur-sm shadow-lg"
       }`}>
       <div
-        className={`flex justify-between items-center py-6 max-w-7xl px-4 mx-auto
+        className={`flex justify-between items-center py-6 max-w-6xl px-4 mx-auto
       }`}>
         <Link href="/" className="flex items-center gap-2">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -31,7 +31,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <main className="flex flex-col min-h-[80vh] overflow-hidden mx-auto max-w-7xl px-4">
+      <main className="flex flex-col min-h-[80vh] overflow-hidden mx-auto max-w-6xl px-4">
         <div className="flex-grow">
           <section className="shadow-md rounded-lg h-[200px] my-6 hero flex flex-col gap-2 items-center justify-center py-12 bg-[#ff8c00]  text-white">
             <h2 className="text-2xl font-semibold p-4 text-center">
@@ -44,7 +44,7 @@ export default function Home() {
               View Source
             </Link>
           </section>
-          <section className="experiments  max-w-7xl">
+          <section className="experiments  max-w-6xl">
             <div className="grid sm:grid-cols-2 gap-4">
               {experimentsData.map((experiment) => (
                 <ExperimentCard key={experiment.id} experiment={experiment} />
@@ -70,7 +70,7 @@ const ExperimentCard = ({ experiment }) => {
   return (
     <Link
       href={experiment.url}
-      className={`relative card rounded shadow-md p-4 bg-blue-500 text-white ${
+      className={`relative card rounded shadow-md p-4 bg-blue-500 hover:opacity-70 text-white ${
         experiment.comingSoon ? "cursor-not-allowed bg-opacity-50" : "cursor-pointer"
       }`}>
       <h4 className="text-xl font-semibold mb-2">{experiment.title}</h4>
