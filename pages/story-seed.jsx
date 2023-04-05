@@ -11,7 +11,7 @@ import { SeedCollection } from "../components/seed-story/SeedCollection";
 import { StoryFeature } from "../components/seed-story/StoryFeature";
 
 export default function StorySeedPage() {
-  const { pills, setPills, addNewPill } = useStory();
+  const { pills, setPills, addNewPill, pathIsLoading } = useStory();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +31,13 @@ export default function StorySeedPage() {
       <main className="max-w-6xl mx-auto font-['Roboto Mono'] p-4">
         <Introduction />
         <SeedCollection setPills={setPills} setIsLoading={setIsLoading} />
-        <StoryFeature isLoading={isLoading} pills={pills} setPills={setPills} addNewPill={addNewPill} />
+        <StoryFeature
+          isLoading={isLoading}
+          pills={pills}
+          setPills={setPills}
+          addNewPill={addNewPill}
+          pathIsLoading={pathIsLoading}
+        />
       </main>
     </div>
   );

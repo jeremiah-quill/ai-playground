@@ -4,14 +4,12 @@ import { buildStoryPath } from "../utils";
 
 export const useStory = () => {
   const [pills, setPills] = useState([]);
+  const [pathIsLoading, setPathIsLoading] = useState(false);
 
   const addNewPill = async (ids) => {
-    // console.log("passed in ids: ", ids);
-    // Traverse pills and build the storyPath string
-    const storyPath = buildStoryPath(pills, ids);
+    setPathIsLoading(true);
 
-    // console.log("pills: ", pills);
-    // console.log("ids: ", ids);
+    const storyPath = buildStoryPath(pills, ids);
 
     const nextLine = await generateNextLine(storyPath);
 
@@ -31,6 +29,8 @@ export const useStory = () => {
     };
 
     setPills(addPillToChildren(pills, ids));
+
+    setPathIsLoading(false);
   };
 
   const generateNextLine = async (storyPath) => {
@@ -47,5 +47,5 @@ export const useStory = () => {
     return data.text;
   };
 
-  return { pills, setPills, addNewPill };
+  return { pills, setPills, addNewPill, pathIsLoading };
 };

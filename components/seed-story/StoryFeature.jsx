@@ -3,12 +3,15 @@ import { StoryPaths } from "./StoryPaths";
 import { Loader } from "../Loader";
 import { buildStoryPath } from "../../utils";
 
-export const StoryFeature = ({ pills, isLoading, addNewPill }) => {
+export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading }) => {
   const [highlightedPath, setHighlightedPath] = useState([]);
 
   return (
     <>
-      <h2 className="text-3xl font-bold mt-16 mb-4">Story</h2>
+      <div className="flex gap-2 items-center mt-16 mb-4">
+        <h2 className="text-3xl font-bold ">Story</h2>
+        {pathIsLoading ? <Loader /> : null}
+      </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Click on a seed to continue the story down that path
       </div>
