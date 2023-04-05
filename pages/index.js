@@ -6,7 +6,7 @@ export default function Home() {
     {
       id: 1,
       title: "Story Seed",
-      description: "Seed a children's story and watch it grow. Make it personal or random.",
+      description: "Seed a children's story and watch it grow, choose your own adventure style.",
       url: "/story-seed",
       comingSoon: false,
     },
@@ -70,8 +70,8 @@ const ExperimentCard = ({ experiment }) => {
   return (
     <Link
       href={experiment.url}
-      className={`relative card rounded shadow-md p-4 bg-blue-500 hover:opacity-70 text-white ${
-        experiment.comingSoon ? "cursor-not-allowed bg-opacity-50" : "cursor-pointer"
+      className={`relative card rounded shadow-md p-4 bg-blue-500 text-white ${
+        experiment.comingSoon ? "cursor-default bg-opacity-50" : "hover:opacity-70 cursor-pointer"
       }`}>
       <h4 className="text-xl font-semibold mb-2">{experiment.title}</h4>
       <p className=" mb-4">{experiment.description}</p>
