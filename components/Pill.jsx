@@ -16,7 +16,7 @@ export const Pill = ({
   return (
     <div className="flex gap-2 items-center mb-2">
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0.3, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         onMouseEnter={(e) => {
           e.stopPropagation();
