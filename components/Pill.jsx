@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export const Pill = ({
   text,
   onClick = () => {},
@@ -13,7 +15,9 @@ export const Pill = ({
 
   return (
     <div className="flex gap-2 items-center mb-2">
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
         onMouseEnter={(e) => {
           e.stopPropagation();
           onMouseEnter(e);
@@ -36,7 +40,7 @@ export const Pill = ({
             &times;
           </span>
         ) : null}
-      </div>
+      </motion.div>
     </div>
   );
 };
