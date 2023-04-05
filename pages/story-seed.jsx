@@ -137,8 +137,8 @@ export default function StorySeedPage() {
             Submit
           </button>
         </div>
-        {isLoading ? <Loader /> : null}
         <StorybookInput
+          isLoading={isLoading}
           pills={pills}
           setPills={setPills}
           selectedPill={selectedPill}
@@ -217,7 +217,7 @@ const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds
   );
 };
 
-const StorybookInput = ({ pills, setPills, selectedPill, setSelectedPill, className }) => {
+const StorybookInput = ({ pills, setPills, selectedPill, setSelectedPill, className, isLoading }) => {
   const removePill = (ids) => {
     const removePillFromChildren = (children, ids) => {
       if (ids.length === 1) {
@@ -274,6 +274,11 @@ const StorybookInput = ({ pills, setPills, selectedPill, setSelectedPill, classN
   return (
     <div className={className}>
       <div className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        {isLoading ? (
+          <div className="absolute inset-0 grid place-items-center">
+            <Loader />
+          </div>
+        ) : null}
         <PillList
           pills={pills}
           selectedPill={selectedPill}
