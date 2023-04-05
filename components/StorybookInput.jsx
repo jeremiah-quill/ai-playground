@@ -17,19 +17,7 @@ const Pill = ({ text, onClick, onRemove, isSelected, className }) => {
   );
 };
 
-const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds = [], depth = 0 }) => {
-  const pillClickHandler = (ids) => {
-    if (JSON.stringify(selectedPill.ids) === JSON.stringify(ids)) {
-      setSelectedPill({ ids: [] });
-    } else {
-      setSelectedPill({ ids });
-    }
-  };
-
-  const isPillSelected = (pillId) => {
-    return JSON.stringify([...currentIds, pillId]) === JSON.stringify(selectedPill.ids);
-  };
-
+const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds = [], depth = 0, addNewPill }) => {
   const getBackgroundColor = () => {
     switch (depth) {
       case 0:
@@ -49,9 +37,8 @@ const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds
         <div key={pill.id} className="mb-4">
           <Pill
             text={pill.text}
-            onClick={() => pillClickHandler([...currentIds, pill.id])}
+            onClick={() => addNewPill([...currentIds, pill.id])}
             onRemove={() => removePill([...currentIds, pill.id])}
-            isSelected={isPillSelected(pill.id)}
             className={`${getBackgroundColor()} text-white px-3 py-1 rounded-full text-sm inline-flex items-center mb-2`}
           />
           {pill.children && (
@@ -63,6 +50,7 @@ const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds
                 removePill={removePill}
                 currentIds={[...currentIds, pill.id]}
                 depth={depth + 1}
+                addNewPill={addNewPill}
               />
             </div>
           )}
@@ -72,7 +60,7 @@ const PillList = ({ pills, selectedPill, setSelectedPill, removePill, currentIds
   );
 };
 
-export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, className }) => {
+export const StorybookInput = ({ pills, setPills, selectedPill, setSelectedPill, className }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event) => {
@@ -113,18 +101,71 @@ export const PillInput = ({ pills, setPills, selectedPill, setSelectedPill, clas
     setPills(removePillFromChildren(pills, ids));
   };
 
+  async function generateNextLine(storyPath) {
+    const response = await fetch("/api/storybook", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ story: storyPath }),
+    });
+
+    const data = await response.json();
+    return data.text;
+  }
+
+  const addNewPill = async (ids) => {
+    // Traverse pills and build the storyPath string
+    const buildStoryPath = (pills, ids) => {
+      if (ids.length === 0) {
+        return "";
+      }
+      const [headId, ...tailIds] = ids;
+      const currentPill = pills.find((pill) => pill.id === headId);
+      const separator = tailIds.length > 0 ? " -> " : "";
+      return currentPill.text + separator + buildStoryPath(currentPill.children, tailIds);
+    };
+
+    const storyPath = buildStoryPath(pills, ids);
+
+    const nextLine = await generateNextLine(storyPath);
+
+    const newPill = { id: uuidv4(), text: nextLine, children: [] };
+
+    const addPillToChildren = (children, ids) => {
+      if (ids.length === 1) {
+        const clickedPill = children.find((child) => child.id === ids[0]);
+        return children.map((child) =>
+          child.id === ids[0] ? { ...child, children: [...clickedPill.children, newPill] } : child
+        );
+      }
+      const [headId, ...tailIds] = ids;
+      return children.map((child) =>
+        child.id === headId ? { ...child, children: addPillToChildren(child.children, tailIds) } : child
+      );
+    };
+
+    setPills(addPillToChildren(pills, ids));
+  };
+
   return (
     <div className={className}>
       <input
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="Enter text and press Enter"
         className="border border-gray-300 px-2 py-1 rounded focus:outline-none focus:border-blue-500 w-full"
       />
       <div className="p-4 rounded max-w-7xl ">
-        <PillList pills={pills} selectedPill={selectedPill} setSelectedPill={setSelectedPill} removePill={removePill} />
+        <PillList
+          pills={pills}
+          selectedPill={selectedPill}
+          setSelectedPill={setSelectedPill}
+          removePill={removePill}
+          addNewPill={addNewPill}
+        />{" "}
       </div>
     </div>
   );

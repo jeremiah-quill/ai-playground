@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     messages: [
       {
         role: "system",
-        content: `You are an AI assistant, and you have been trained to write emails based on a hierarchy of main, sub, and sub-sub points provided by a user.  You receive a data structure that contains all of the points to cover, and a tone to stick to in the email. Keep your response concise and to the point.`,
+        content: `You are an AI assistant, and you have been trained to write emails when given a summary of topics and details to cover. You will receive a data structure that contains all of the topics and details to cover, and a writing tone to apply. Keep your response concise, but make sure to include all of the topics and details.`,
       },
       {
         role: "user",
@@ -30,14 +30,14 @@ const generateEmailPrompt = (data, tone) => {
   const formatPoints = (points, depth = 0) => {
     const prefix = "  ".repeat(depth) + "- ";
     return points
-      .map(
-        (point) =>
-          prefix + point.text + (point.subpoints.length > 0 ? "\n" + formatPoints(point.subpoints, depth + 1) : "")
-      )
+      .map((point) => {
+        const subpointsText = point.children.length > 0 ? "\n" + formatPoints(point.children, depth + 1) : "";
+        return prefix + point.text + subpointsText;
+      })
       .join("\n");
   };
 
   const pointsText = formatPoints(data);
-  const prompt = `Please write an email in a ${tone} tone that covers the following points:\n${pointsText}`;
+  const prompt = `Please write an email in a ${tone} tone that covers the following topics and details:\n${pointsText}.`;
   return prompt;
 };

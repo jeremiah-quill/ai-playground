@@ -5,15 +5,15 @@ export default function Home() {
   const experimentsData = [
     {
       id: 1,
-      title: "Jotmail",
-      description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
-      url: "/jotmail",
+      title: "Story Seed",
+      description: "Seed a children's story and watch it grow. Make it personal or random.",
+      url: "/story-seed",
       comingSoon: false,
     },
     {
       id: 2,
-      title: "Whisp",
-      description: "",
+      title: "Jotmail",
+      description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
       url: "#",
       comingSoon: true,
     },
