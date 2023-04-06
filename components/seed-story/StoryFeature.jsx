@@ -19,7 +19,7 @@ export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading, crea
           be able to continue down that path.
         </p>
         <br />
-        <p>Hover a line in the story to see the entire story path to that point</p>
+        <p>Hover a line in the story to see the entire story path to that point.</p>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <motion.div
