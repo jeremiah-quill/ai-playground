@@ -36,8 +36,6 @@ export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading, crea
             addNewPill={addNewPill}
             highlightedPath={highlightedPath}
             setHighlightedPath={setHighlightedPath}
-            creativity={creativity}
-            storyLength={storyLength}
           />
         </motion.div>
         <div className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

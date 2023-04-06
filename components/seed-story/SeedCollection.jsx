@@ -77,15 +77,7 @@ export function SeedCollection({
                 </div>
               )}
               {seeds.map((seed) => {
-                return (
-                  <Pill
-                    id={seed.id}
-                    key={seed.text}
-                    text={seed.text}
-                    onRemove={handleRemoveSeed}
-                    className="p-2 rounded-md"
-                  />
-                );
+                return <Pill id={seed.id} key={seed.id} text={seed.text} onRemove={handleRemoveSeed} className="" />;
               })}
             </div>
           </div>
