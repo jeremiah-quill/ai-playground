@@ -12,7 +12,11 @@ export const Pill = ({
   onMouseEnter = () => {},
   onMouseLeave = () => {},
 }) => {
-  const highlightColor = isHighlighted ? "bg-yellow-500" : "bg-slate-500";
+  const highlightColor = isHighlighted ? "bg-yellow-500" : "transparent";
+
+  const isEnd = text.split("").slice(-2).join("") === "||";
+
+  const endText = isEnd ? text.split("").slice(0, -2).join("") : text;
 
   return (
     <motion.div
@@ -23,7 +27,9 @@ export const Pill = ({
         y: 0,
       }}
       transition={{ type: "spring", duration: 0.3 }}
-      className="flex gap-2 items-center mb-2">
+      className={`flex rounded-lg overflow-hidden gap-2 items-center mb-2 ${
+        isEnd ? "bg-red-300 cursor-not-allowed" : "bg-slate-300 cursor-pointer  hover:bg-green-400"
+      }`}>
       <div
         onMouseEnter={(e) => {
           e.stopPropagation();
@@ -33,10 +39,17 @@ export const Pill = ({
           e.stopPropagation();
           onMouseLeave(e);
         }}
-        onClick={disabled ? () => {} : onClick}
-        className={`${className} gap-2 text-white p-2 py-1 rounded text-sm items-center flex ${highlightColor}`}>
-        <div>{text}</div>
-        {/* <div>{id}</div> */}
+        onClick={disabled || isEnd ? () => {} : onClick}
+        className={`${className} gap-2 p-2 py-1 rounded text-sm items-center flex `}>
+        <div>
+          <p>{endText}</p>
+          {isEnd ? (
+            <>
+              <br />
+              <p>The end.</p>
+            </>
+          ) : null}
+        </div>
         {onRemove ? (
           <span
             onClick={(e) => {

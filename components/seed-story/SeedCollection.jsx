@@ -3,12 +3,22 @@ import { v4 as uuidv4 } from "uuid";
 import { Pill } from "../Pill";
 import { useSeeds } from "../../hooks/useSeeds";
 
-export function SeedCollection({ setPills, setIsLoading }) {
-  const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
-
-  const [selectedOption, setSelectedOption] = useState("");
-  const [creativity, setCreativity] = useState(".5");
-  const [storyLength, setStoryLength] = useState(5);
+export function SeedCollection({
+  seeds,
+  seedInput,
+  onSeedInputChange,
+  handleSubmit,
+  handleRemoveSeed,
+  setPills,
+  setIsLoading,
+  setStoryLength,
+  setCreativity,
+  creativity,
+  storyLength,
+  selectedOption,
+  setSelectedOption,
+}) {
+  // const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
 
   const handleStyleChange = (e) => {
     setSelectedOption(e.target.value);
@@ -30,7 +40,7 @@ export function SeedCollection({ setPills, setIsLoading }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ seeds: seeds.map((seed) => seed.text), theme: selectedOption }),
+      body: JSON.stringify({ seeds: seeds.map((seed) => seed.text), theme: selectedOption, creativity, storyLength }),
     });
 
     const data = await response.json();
@@ -80,7 +90,7 @@ export function SeedCollection({ setPills, setIsLoading }) {
             </div>
           </div>
           {/*  */}
-          <div className="grid gap-2">
+          <div className="flex flex-col gap-2 items-start h-full">
             <label htmlFor="tones" className="block text-sm font-medium text-gray-900 dark:text-white">
               Select a theme <span className="text-red-500">(required)</span>
             </label>
@@ -106,7 +116,7 @@ export function SeedCollection({ setPills, setIsLoading }) {
               <option value="social learning">Social learning</option>
               <option value="values">Values</option>
             </select>
-            <label htmlFor="tones" className="block text-sm font-medium text-gray-900 dark:text-white">
+            {/* <label htmlFor="tones" className="block text-sm font-medium text-gray-900 dark:text-white">
               Choose how many sentences before the story ends:
               <span className="text-red-500"> (required)</span>
             </label>
@@ -115,7 +125,7 @@ export function SeedCollection({ setPills, setIsLoading }) {
               onChange={handleStoryLengthChange}
               type="number"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
+            /> */}
             <label htmlFor="creativity" className="block text-sm font-medium text-gray-900 dark:text-white">
               Creativity level (low = more predictable, high = more creative)
               <span className="text-red-500"> (required)</span>
@@ -124,28 +134,28 @@ export function SeedCollection({ setPills, setIsLoading }) {
               <input
                 value={creativity}
                 id="creativity"
-                min=".1"
-                max="1"
+                min=".0"
+                max=".5"
                 step=".01"
                 type="range"
                 onChange={handleCreativityChange}
                 className="mr-2 border flex-1 border-gray-300  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
               <div className="bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center w-[80px] p-1 px-2 rounded-lg">
-                {creativity}
+                {(creativity * 200).toFixed(0)}%
               </div>
             </div>
+            <button
+              className={`mt-auto self-stretch px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-md ${
+                selectedOption === "" ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={seedStory}
+              disabled={selectedOption === ""}>
+              Submit
+            </button>
           </div>
           {/*  */}
         </div>
-        <button
-          className={`px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-md ${
-            selectedOption === "" ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          onClick={seedStory}
-          disabled={selectedOption === ""}>
-          Submit
-        </button>
       </div>
     </>
   );
