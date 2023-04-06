@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StoryPaths } from "./StoryPaths";
 import { Loader } from "../Loader";
 import { buildStoryPath } from "../../utils";
+import { motion } from "framer-motion";
 
 export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading }) => {
   const [highlightedPath, setHighlightedPath] = useState([]);
@@ -16,7 +17,10 @@ export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading }) =>
         Click on a seed to continue the story down that path
       </div>
       <div className="grid grid-cols-2 gap-2">
-        <div className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <motion.div
+          transition={{ type: "spring", duration: 0.3 }}
+          layout
+          className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           {isLoading ? (
             <div className="absolute inset-0 grid place-items-center">
               <Loader />
@@ -28,7 +32,7 @@ export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading }) =>
             highlightedPath={highlightedPath}
             setHighlightedPath={setHighlightedPath}
           />
-        </div>
+        </motion.div>
         <div className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           {buildStoryPath(pills, highlightedPath)}
         </div>

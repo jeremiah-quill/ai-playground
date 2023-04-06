@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 
 export const Pill = ({
   text,
@@ -14,10 +15,16 @@ export const Pill = ({
   const highlightColor = isHighlighted ? "bg-yellow-500" : "bg-slate-500";
 
   return (
-    <div className="flex gap-2 items-center mb-2">
-      <motion.div
-        initial={{ opacity: 0.3, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
+    <motion.div
+      layout={true}
+      initial={{ opacity: 0.3, y: -8 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{ type: "spring", duration: 0.3 }}
+      className="flex gap-2 items-center mb-2">
+      <div
         onMouseEnter={(e) => {
           e.stopPropagation();
           onMouseEnter(e);
@@ -40,7 +47,7 @@ export const Pill = ({
             &times;
           </span>
         ) : null}
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
