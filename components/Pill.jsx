@@ -50,7 +50,7 @@ export const StoryPill = ({
       className={`gap-2 mb-2 px-2 py-1 text-slate-800 rounded text-sm inline-flex items-center ${
         isEnd
           ? "bg-red-300 cursor-not-allowed"
-          : `${isInCurrentPath ? "bg-yellow-400 hover:bg-green-400" : "bg-slate-300"} cursor-pointer`
+          : `${isInCurrentPath ? "bg-yellow-400 hover:bg-green-400" : "bg-slate-300"} cursor-pointer ${className}`
       }`}
       onMouseEnter={(e) => {
         e.stopPropagation();

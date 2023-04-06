@@ -10,7 +10,7 @@ import { useSeeds } from "../hooks/useSeeds";
 import { Introduction } from "../components/seed-story/Introduction";
 import { SeedCollection } from "../components/seed-story/SeedCollection";
 import { StoryFeature } from "../components/seed-story/StoryFeature";
-import { buildStoryPath } from "../utils";
+import { buildStoryPathText, buildStoryPath } from "../utils";
 
 export default function StorySeedPage() {
   const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
@@ -26,7 +26,7 @@ export default function StorySeedPage() {
   const addNewPill = async (ids) => {
     setPathIsLoading(true);
 
-    const storyPath = buildStoryPath(pills, ids);
+    const storyPath = buildStoryPathText(pills, ids);
 
     const nextLine = await generateNextLine(storyPath);
 
