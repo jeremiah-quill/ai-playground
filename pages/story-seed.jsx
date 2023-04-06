@@ -1,19 +1,74 @@
 // 3rd party
 import Head from "next/head";
+import { v4 as uuidv4 } from "uuid";
 
 // react internals
 import { useState } from "react";
 
 // components
-import { useStory } from "../hooks/useStory";
+import { useSeeds } from "../hooks/useSeeds";
 import { Introduction } from "../components/seed-story/Introduction";
 import { SeedCollection } from "../components/seed-story/SeedCollection";
 import { StoryFeature } from "../components/seed-story/StoryFeature";
+import { buildStoryPath } from "../utils";
 
 export default function StorySeedPage() {
-  const { pills, setPills, addNewPill, pathIsLoading } = useStory();
+  const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
+
+  const [selectedOption, setSelectedOption] = useState("");
+  const [pills, setPills] = useState([]);
+  const [pathIsLoading, setPathIsLoading] = useState(false);
+  const [creativity, setCreativity] = useState(".2");
+  const [storyLength, setStoryLength] = useState(5);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const addNewPill = async (ids) => {
+    setPathIsLoading(true);
+
+    const storyPath = buildStoryPath(pills, ids);
+
+    const nextLine = await generateNextLine(storyPath);
+
+    const newPill = { id: uuidv4(), text: nextLine, children: [] };
+
+    const addPillToChildren = (children, ids) => {
+      if (ids.length === 1) {
+        return children.map((child) =>
+          child.id === ids[0] ? { ...child, children: [newPill, ...child.children] } : child
+        );
+      }
+      const [headId, ...tailIds] = ids;
+      return children.map((child) =>
+        child.id === headId ? { ...child, children: addPillToChildren(child.children, tailIds) } : child
+      );
+    };
+
+    setPills(addPillToChildren(pills, ids));
+
+    setPathIsLoading(false);
+  };
+
+  const generateNextLine = async (storyPath, currentSentence) => {
+    const response = await fetch("/api/get-next-storyline", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        story: storyPath,
+        seeds,
+        theme: selectedOption,
+        creativity,
+        storyLength,
+        currentSentence,
+      }),
+    });
+
+    const data = await response.json();
+
+    return data.text;
+  };
 
   return (
     <div>
@@ -30,8 +85,24 @@ export default function StorySeedPage() {
       </Head>
       <main className="max-w-6xl mx-auto font-['Roboto Mono'] p-4">
         <Introduction />
-        <SeedCollection setPills={setPills} setIsLoading={setIsLoading} />
+        <SeedCollection
+          setPills={setPills}
+          setIsLoading={setIsLoading}
+          creativity={creativity}
+          storyLength={storyLength}
+          setCreativity={setCreativity}
+          setStoryLength={setStoryLength}
+          seeds={seeds}
+          seedInput={seedInput}
+          onSeedInputChange={onSeedInputChange}
+          handleSubmit={handleSubmit}
+          handleRemoveSeed={handleRemoveSeed}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
         <StoryFeature
+          creativity={creativity}
+          storyLength={storyLength}
           isLoading={isLoading}
           pills={pills}
           setPills={setPills}

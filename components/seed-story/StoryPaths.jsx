@@ -16,7 +16,7 @@ export const StoryPaths = ({ pills, currentIds = [], depth = 0, addNewPill, high
               id={pill.id}
               text={pill.text}
               onClick={() => addNewPill([...currentIds, pill.id])}
-              className={` text-white hover:opacity-80 p-2 py-1 rounded text-sm inline-flex items-center cursor-pointer`}
+              className={`text-slate-800 p-2 py-1 rounded text-sm inline-flex items-center`}
             />
             {pill.children && (
               <div className="ml-4">
