@@ -58,17 +58,24 @@ export function SeedCollection({
           <div className="grid gap-2">
             <form onSubmit={handleSubmit} className="grid gap-2">
               <label htmlFor="seed-content" className="block text-sm font-medium text-gray-900 dark:text-white">
-                Add seed content (plot, characters, setting, etc.)
+                Add seed content (plot, characters, setting, etc.) and press enter/return
               </label>
-              <input
-                autoComplete="off"
-                value={seedInput}
-                onChange={onSeedInputChange}
-                type="text"
-                id="seed-content"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Type a seed and press enter"
-              />
+              <div className="flex">
+                <input
+                  autoComplete="off"
+                  value={seedInput}
+                  onChange={onSeedInputChange}
+                  type="text"
+                  id="seed-content"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Type a seed and press enter"
+                />
+                <input
+                  type="submit"
+                  value="Add"
+                  className={`w-full max-w-[200px] px-2 text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-lg rounded-l-none`}
+                />
+              </div>
             </form>
             <div className="flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               {seeds.length === 0 && (
@@ -119,7 +126,7 @@ export function SeedCollection({
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             /> */}
             <label htmlFor="creativity" className="mt-6 block text-sm font-medium text-gray-900 dark:text-white">
-              Creativity level (low = more predictable, high = more creative)
+              Select creativity level (low = more predictable, high = more creative)
             </label>
             <div className="flex items-center gap-4 font-black w-full">
               <input
