@@ -10,9 +10,11 @@ export default async function handler(req, res) {
 
   const openai = new OpenAIApi(configuration);
 
-  const content = `The chosen theme for my story is: ${theme}.  The initial seed concepts for my story were: ${seeds}.  I'm requesting the story should be ${"a few sentences"} long only. This is the story up until this point: ${story}. Please provide the next sentence in the story, keeping in mind that the story length should be around ${"a few sentences"} long.  If you feel the story is coming to an end, please continue progressing towards the end.  If you feel like it has reached the end of the story, provide the ending sentence followed by this symbol: "||".`;
-
-  console.log("content", content);
+  const content = `The chosen theme for my story is: ${theme}.  The initial seed concepts for my story were: ${seeds
+    .map((seed, index) => `${index + 1}: ${seed.text}`)
+    .join(
+      " "
+    )}.  The story needs to be ${"a few sentences"} only. This is the current story: ${story}. Please provide the next sentence in the story, keeping in mind that the story length should be around ${"a few sentences"} long.  If you feel the story is coming to an end, please continue progressing towards the end.  If you feel like it has reached the end of the story, provide the ending sentence followed by this symbol: "||".`;
 
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",

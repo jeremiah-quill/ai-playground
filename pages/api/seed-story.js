@@ -3,11 +3,6 @@ import { Configuration, OpenAIApi } from "openai";
 export default async function handler(req, res) {
   const { seeds, theme, creativity, storyLength } = req.body;
 
-  console.log("seeds", seeds);
-  console.log("theme", theme);
-  console.log("creativity", creativity);
-  console.log("storyLength", storyLength);
-
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
     temperature: creativity,

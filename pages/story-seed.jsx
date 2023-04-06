@@ -26,7 +26,7 @@ export default function StorySeedPage() {
   const addNewPill = async (ids) => {
     setPathIsLoading(true);
 
-    const storyPath = buildStoryPathText(pills, ids);
+    const storyPath = buildStoryPath(pills, ids);
 
     const nextLine = await generateNextLine(storyPath);
 
@@ -56,7 +56,7 @@ export default function StorySeedPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        story: storyPath,
+        story: storyPath.map((pill) => pill.text).join(" "),
         seeds,
         theme: selectedOption,
         creativity,
