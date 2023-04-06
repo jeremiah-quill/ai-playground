@@ -126,11 +126,10 @@ export function SeedCollection({
               type="number"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             /> */}
-            <label htmlFor="creativity" className="block text-sm font-medium text-gray-900 dark:text-white">
+            <label htmlFor="creativity" className="mt-6 block text-sm font-medium text-gray-900 dark:text-white">
               Creativity level (low = more predictable, high = more creative)
-              <span className="text-red-500"> (required)</span>
             </label>
-            <div className="flex items-center gap-4 font-black">
+            <div className="flex items-center gap-4 font-black w-full">
               <input
                 value={creativity}
                 id="creativity"
