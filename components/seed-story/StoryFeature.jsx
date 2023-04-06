@@ -5,7 +5,7 @@ import { buildStoryPath } from "../../utils";
 import { motion } from "framer-motion";
 import { StoryPill } from "../Pill";
 
-export const StoryFeature = ({ pills, addNewPill, pathIsLoading }) => {
+export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) => {
   const [highlightedPath, setHighlightedPath] = useState([]);
 
   const path = buildStoryPath(pills, highlightedPath);
@@ -31,6 +31,7 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading }) => {
           className={`h-[500px] overflow-scroll flex gap-2 content-start items-start flex-wrap min-h-[200px] bg-gray-50 border border-gray-300 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
             pathIsLoading ? "pointer-events-none" : "pointer-events-auto"
           }`}>
+          {isLoading && <Loader className="absolute inset-0 grid place-items-center" />}
           <StoryPaths
             pills={pills}
             addNewPill={addNewPill}

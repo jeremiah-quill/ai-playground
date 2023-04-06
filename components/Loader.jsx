@@ -1,6 +1,6 @@
-export function Loader() {
+export function Loader({ className }) {
   return (
-    <div className="flex justify-center items-center  h-full">
+    <div className={`flex justify-center items-center h-full ${className}`}>
       <div className="animate-spin">
         <svg width="35" height="35" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
