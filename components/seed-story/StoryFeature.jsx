@@ -14,7 +14,7 @@ export const StoryFeature = ({ pills, isLoading, addNewPill, pathIsLoading }) =>
         {pathIsLoading ? <Loader /> : null}
       </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Click on a seed to continue the story down that path
+        Click on a seed to continue the story down that path. Create multiple branches to see how the story can change.
       </div>
       <div className="grid grid-cols-2 gap-2">
         <motion.div
