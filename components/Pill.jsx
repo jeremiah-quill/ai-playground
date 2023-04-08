@@ -33,11 +33,10 @@ export const Pill = ({ text, onRemove, className }) => {
 export const StoryPill = ({
   isContextMenuEnabled = false,
   text,
-  onClick = () => {},
   disabled = false,
   isInCurrentPath = false,
+  onClick = () => {},
   onMouseEnter = () => {},
-  onMouseLeave = () => {},
   className,
 }) => {
   const targetRef = useRef(null);
@@ -65,17 +64,7 @@ export const StoryPill = ({
         isEnd
           ? "bg-red-300 cursor-not-allowed"
           : `${isInCurrentPath ? "bg-yellow-400 " : "bg-slate-300"} cursor-pointer hover:bg-green-400 ${className}`
-      }`}
-      // onMouseEnter={(e) => {
-      //   e.stopPropagation();
-      //   onMouseEnter(e);
-      // }}
-      // onMouseLeave={(e) => {
-      //   e.stopPropagation();
-      //   onMouseLeave(e);
-      // }}
-      // onClick={disabled || isEnd ? () => {} : onClick}
-    >
+      }`}>
       <div>
         <p>{endText}</p>
         {isEnd ? (
@@ -112,10 +101,10 @@ export const StoryPill = ({
                     closeMenu();
                   }
             }>
-            Generate next line in path
+            Generate new path from this point
           </li>
           <li className="p-2 hover:bg-slate-200" onClick={handleShowPath}>
-            View this path
+            View this story's path
           </li>
         </ul>
       )}

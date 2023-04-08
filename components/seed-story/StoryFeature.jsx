@@ -23,8 +23,9 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) =>
       </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white max-w-[75ch]">
         <p>
-          Click on a line below to continue the story down that path. Once you reach the end of the story, you will not
-          be able to continue down that path.
+          Click on a line from your story below. Generate a new part of that stories path from that point, or view that
+          stories path up to that point. Once you reach the end of the story, you will not be able to continue down that
+          path.
         </p>
         <br />
         <p>Hover a line in the story to see the entire story path to that point.</p>
