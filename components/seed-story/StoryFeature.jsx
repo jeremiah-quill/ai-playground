@@ -7,7 +7,7 @@ import { useState } from "react";
 // components and functions
 import { StoryPaths } from "@/components/seed-story/StoryPaths";
 import { Loader } from "@/components/Loader";
-import { StoryPill } from "@/components/Pill";
+import { StoryPill, StoryPathPill } from "@/components/Pill";
 import { buildStoryPath } from "@/utils";
 
 export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) => {
@@ -48,7 +48,7 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) =>
           <ul>
             {path.map((pill, index) => {
               return (
-                <StoryPill
+                <StoryPathPill
                   key={pill.id}
                   text={pill.text}
                   disabled="true"

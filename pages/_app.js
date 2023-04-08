@@ -1,8 +1,7 @@
-import "../styles/globals.css";
-import "../styles/GradientBackground.css";
-import { Layout } from "../components/Layout";
+import "@/styles/globals.css";
+import { Layout } from "components/Layout";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
+export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
     <Layout>
       <Component {...pageProps} />

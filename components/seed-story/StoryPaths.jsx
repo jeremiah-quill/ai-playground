@@ -10,13 +10,16 @@ export const StoryPaths = ({ pills, currentIds = [], addNewPill, highlightedPath
       <AnimatePresence initial={false}>
         {pills?.map((pill) => (
           <div key={pill.id}>
+            {/* <ContextMenu options={["test", "test2", "test3"]}> */}
             <StoryPill
+              isContextMenuEnabled={true}
               isInCurrentPath={highlightedPath.includes(pill.id)}
               onMouseEnter={() => setHighlightedPath([...currentIds, pill.id])}
               onMouseLeave={() => setHighlightedPath([])}
               text={pill.text}
               onClick={() => addNewPill([...currentIds, pill.id])}
             />
+            {/* </ContextMenu> */}
             {pill.children && (
               <div className="ml-4">
                 <StoryPaths
