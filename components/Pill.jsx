@@ -1,7 +1,10 @@
+// 3rd party
 import { motion } from "framer-motion";
+
+// react internals
 import React from "react";
 
-export const Pill = ({ text, onRemove, className, id }) => {
+export const Pill = ({ text, onRemove, className }) => {
   return (
     <motion.div
       layout={true}
@@ -16,7 +19,7 @@ export const Pill = ({ text, onRemove, className, id }) => {
       <span
         onClick={(e) => {
           e.stopPropagation();
-          onRemove(id);
+          onRemove();
         }}
         className="ml-auto cursor-pointer">
         &times;

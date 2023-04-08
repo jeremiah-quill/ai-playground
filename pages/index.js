@@ -12,6 +12,13 @@ export default function Home() {
     },
     {
       id: 2,
+      title: "React Auto-Complete",
+      description: "Simple auto-complete component using OpenAI's GPT-3.5",
+      url: "#",
+      comingSoon: true,
+    },
+    {
+      id: 3,
       title: "Jotmail",
       description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
       url: "#",

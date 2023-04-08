@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { StoryPaths } from "./StoryPaths";
-import { Loader } from "../Loader";
-import { buildStoryPath } from "../../utils";
+// 3rd party
 import { motion } from "framer-motion";
-import { StoryPill } from "../Pill";
+
+// react internals
+import { useState } from "react";
+
+// components and functions
+import { StoryPaths } from "@/components/seed-story/StoryPaths";
+import { Loader } from "@/components/Loader";
+import { StoryPill } from "@/components/Pill";
+import { buildStoryPath } from "@/utils";
 
 export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) => {
   const [highlightedPath, setHighlightedPath] = useState([]);

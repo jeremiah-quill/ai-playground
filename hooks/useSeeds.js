@@ -1,6 +1,8 @@
-// useSeeds.js
-import { useState } from "react";
+// 3rd party
 import { v4 as uuidv4 } from "uuid";
+
+// react internals
+import { useState } from "react";
 
 export function useSeeds() {
   const [seeds, setSeeds] = useState([]);

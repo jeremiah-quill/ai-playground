@@ -1,7 +1,8 @@
-import { useState } from "react";
+// 3rd party
 import { v4 as uuidv4 } from "uuid";
-import { Pill } from "../Pill";
-import { useSeeds } from "../../hooks/useSeeds";
+
+// components
+import { Pill } from "@/components/Pill";
 
 export function SeedCollection({
   seeds,
@@ -18,8 +19,6 @@ export function SeedCollection({
   selectedOption,
   setSelectedOption,
 }) {
-  // const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
-
   const handleStyleChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -84,11 +83,18 @@ export function SeedCollection({
                 </div>
               )}
               {seeds.map((seed) => {
-                return <Pill id={seed.id} key={seed.id} text={seed.text} onRemove={handleRemoveSeed} className="" />;
+                return (
+                  <Pill
+                    id={seed.id}
+                    key={seed.id}
+                    text={seed.text}
+                    onRemove={() => handleRemoveSeed(seed.id)}
+                    className=""
+                  />
+                );
               })}
             </div>
           </div>
-          {/*  */}
           <div className="flex flex-col gap-2 items-start h-full">
             <label htmlFor="tones" className="block text-sm font-medium text-gray-900 dark:text-white">
               Select a theme <span className="text-red-500">(required)</span>
@@ -152,7 +158,6 @@ export function SeedCollection({
               Submit
             </button>
           </div>
-          {/*  */}
         </div>
       </div>
     </>

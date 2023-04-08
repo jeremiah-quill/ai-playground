@@ -6,11 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 // components
-import { useSeeds } from "../hooks/useSeeds";
-import { Introduction } from "../components/seed-story/Introduction";
-import { SeedCollection } from "../components/seed-story/SeedCollection";
-import { StoryFeature } from "../components/seed-story/StoryFeature";
-import { buildStoryPathText, buildStoryPath } from "../utils";
+import { useSeeds } from "@/hooks/useSeeds";
+import { Introduction } from "@/components/seed-story/Introduction";
+import { SeedCollection } from "@/components/seed-story/SeedCollection";
+import { StoryFeature } from "@/components/seed-story/StoryFeature";
+import { buildStoryPath } from "@/utils";
 
 export default function StorySeedPage() {
   const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();

@@ -1,5 +1,8 @@
-import { StoryPill } from "../Pill";
+// 3rd party
 import { AnimatePresence } from "framer-motion";
+
+// components
+import { StoryPill } from "@/components/Pill";
 
 export const StoryPaths = ({ pills, currentIds = [], addNewPill, highlightedPath, setHighlightedPath }) => {
   return (

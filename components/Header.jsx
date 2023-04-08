@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+// 3rd party
 import Link from "next/link";
+
+// react internals
+import React, { useState, useEffect } from "react";
 
 export function Header() {
   const [top, setTop] = useState(true);
 
-  // detect whether user has scrolled the page down by 10px
+  // detect whether user has scrolled the page down by 10px. If so, set top to false to control the header's blur and shadow
   useEffect(() => {
     const scrollHandler = () => {
       window.pageYOffset > 10 ? setTop(false) : setTop(true);
@@ -44,40 +47,8 @@ export function Header() {
               </clipPath>
             </defs>
           </svg>
-
-          {/* <svg className="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FF8C00" />
-                <stop offset="100%" stopColor="#FFA07A" />
-              </linearGradient>
-            </defs>
-            <rect width="32" height="32" rx="4" fill="url(#logo-gradient)" />
-            <text
-              x="50%"
-              y="50%"
-              dy="0.3em"
-              fill="#FFF"
-              fontFamily="sans-serif"
-              fontWeight="bold"
-              fontSize="16"
-              textAnchor="middle">
-              JQ
-            </text>
-          </svg> */}
           <h1 className="text-3xl md:text-3xl font-black">OpenAI Playground</h1>
         </Link>
-        {/* <nav>
-          <Link className="mx-2" href="/">
-            Home
-          </Link>
-          <Link className="mx-2" href="/about">
-            About
-          </Link>
-          <Link className="mx-2" href="/contact">
-            Contact
-          </Link>
-        </nav> */}
       </div>
     </header>
   );
