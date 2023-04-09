@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export function useSeeds() {
   const [seeds, setSeeds] = useState([]);
+  const [isSetup, setIsSetup] = useState(true);
   const [seedInput, setSeedInput] = useState("");
 
   function handleSubmit(e) {

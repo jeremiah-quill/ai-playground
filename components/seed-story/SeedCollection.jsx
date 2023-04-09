@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Pill } from "@/components/Pill";
 
 export function SeedCollection({
+  setIsSetup,
   seeds,
   seedInput,
   onSeedInputChange,
@@ -47,6 +48,7 @@ export function SeedCollection({
     setPills([{ id: uuidv4(), text: data.text, children: [] }]);
 
     setIsLoading(false);
+    setIsSetup(false);
   }
 
   return (

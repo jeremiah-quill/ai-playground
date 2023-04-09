@@ -15,6 +15,7 @@ import { buildStoryPath } from "@/utils";
 export default function StorySeedPage() {
   const { seeds, seedInput, onSeedInputChange, handleSubmit, handleRemoveSeed } = useSeeds();
 
+  const [isSetup, setIsSetup] = useState(true);
   const [selectedOption, setSelectedOption] = useState("");
   const [pills, setPills] = useState([]);
   const [pathIsLoading, setPathIsLoading] = useState(false);
@@ -84,31 +85,38 @@ export default function StorySeedPage() {
         />
       </Head>
       <main className="max-w-6xl mx-auto font-['Roboto Mono'] p-4">
-        <Introduction />
-        <SeedCollection
-          setPills={setPills}
-          setIsLoading={setIsLoading}
-          creativity={creativity}
-          storyLength={storyLength}
-          setCreativity={setCreativity}
-          setStoryLength={setStoryLength}
-          seeds={seeds}
-          seedInput={seedInput}
-          onSeedInputChange={onSeedInputChange}
-          handleSubmit={handleSubmit}
-          handleRemoveSeed={handleRemoveSeed}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-        <StoryFeature
-          creativity={creativity}
-          storyLength={storyLength}
-          isLoading={isLoading}
-          pills={pills}
-          setPills={setPills}
-          addNewPill={addNewPill}
-          pathIsLoading={pathIsLoading}
-        />
+        {isSetup ? (
+          <>
+            <Introduction />
+            <SeedCollection
+              setPills={setPills}
+              setIsLoading={setIsLoading}
+              creativity={creativity}
+              storyLength={storyLength}
+              setCreativity={setCreativity}
+              setStoryLength={setStoryLength}
+              seeds={seeds}
+              seedInput={seedInput}
+              onSeedInputChange={onSeedInputChange}
+              handleSubmit={handleSubmit}
+              setIsSetup={setIsSetup}
+              handleRemoveSeed={handleRemoveSeed}
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
+            />
+          </>
+        ) : (
+          <StoryFeature
+            creativity={creativity}
+            storyLength={storyLength}
+            isLoading={isLoading}
+            pills={pills}
+            setPills={setPills}
+            addNewPill={addNewPill}
+            pathIsLoading={pathIsLoading}
+            setIsSetup={setIsSetup}
+          />
+        )}
       </main>
     </div>
   );

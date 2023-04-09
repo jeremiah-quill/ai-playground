@@ -1,5 +1,6 @@
 // 3rd party
 import { motion } from "framer-motion";
+import { BsArrowBarLeft } from "react-icons/bs";
 
 // react internals
 import { useState } from "react";
@@ -10,7 +11,7 @@ import { Loader } from "@/components/Loader";
 import { StaticPathNode } from "@/components/Pill";
 import { buildStoryPath } from "@/utils";
 
-export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) => {
+export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading, setIsSetup }) => {
   const [highlightedPath, setHighlightedPath] = useState([]);
 
   const path = buildStoryPath(pills, highlightedPath);
@@ -18,7 +19,13 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) =>
   return (
     <>
       <div className="flex gap-2 items-center mt-16 mb-4">
-        <h2 className="text-3xl font-bold ">Story</h2>
+        <div>
+          <button className="flex gap-2 items-center mb-2" onClick={() => setIsSetup(true)}>
+            <BsArrowBarLeft className="text-xl" />
+            Back to seeds
+          </button>
+          <h2 className="text-3xl font-bold ">Story</h2>
+        </div>
         {pathIsLoading ? <Loader /> : null}
       </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white max-w-[75ch]">
