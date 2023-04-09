@@ -24,9 +24,11 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading, setI
             <BsArrowBarLeft className="text-xl" />
             Back to seeds
           </button>
-          <h2 className="text-3xl font-bold ">Story</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-3xl font-bold ">Story</h2>
+            {pathIsLoading ? <Loader /> : null}
+          </div>
         </div>
-        {pathIsLoading ? <Loader /> : null}
       </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white max-w-[75ch]">
         <p>
