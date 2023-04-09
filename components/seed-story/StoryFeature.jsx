@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 // components and functions
-import { StoryPaths } from "@/components/seed-story/StoryPaths";
+import { PathTree } from "@/components/seed-story/PathTree";
 import { Loader } from "@/components/Loader";
-import { StoryPill, StoryPathPill } from "@/components/Pill";
+import { StaticPathNode } from "@/components/Pill";
 import { buildStoryPath } from "@/utils";
 
 export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) => {
@@ -38,7 +38,7 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) =>
             pathIsLoading ? "pointer-events-none" : "pointer-events-auto"
           }`}>
           {isLoading && <Loader className="absolute inset-0 grid place-items-center" />}
-          <StoryPaths
+          <PathTree
             pills={pills}
             addNewPill={addNewPill}
             highlightedPath={highlightedPath}
@@ -49,7 +49,7 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading }) =>
           <ul>
             {path.map((pill, index) => {
               return (
-                <StoryPathPill
+                <StaticPathNode
                   key={pill.id}
                   text={pill.text}
                   disabled="true"

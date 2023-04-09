@@ -2,7 +2,7 @@
 import { AnimatePresence } from "framer-motion";
 
 // components
-import { StoryPill } from "@/components/Pill";
+import { PathNode } from "@/components/Pill";
 
 export const StoryPaths = ({ pills, currentIds = [], addNewPill, highlightedPath, setHighlightedPath }) => {
   return (
@@ -11,7 +11,7 @@ export const StoryPaths = ({ pills, currentIds = [], addNewPill, highlightedPath
         {pills?.map((pill) => (
           <div key={pill.id}>
             {/* <ContextMenu options={["test", "test2", "test3"]}> */}
-            <StoryPill
+            <PathNode
               isContextMenuEnabled={true}
               isInCurrentPath={highlightedPath.includes(pill.id)}
               onMouseEnter={() => setHighlightedPath([...currentIds, pill.id])}
@@ -22,7 +22,7 @@ export const StoryPaths = ({ pills, currentIds = [], addNewPill, highlightedPath
             {/* </ContextMenu> */}
             {pill.children && (
               <div className="ml-4">
-                <StoryPaths
+                <PathTree
                   pills={pill.children}
                   currentIds={[...currentIds, pill.id]}
                   addNewPill={addNewPill}

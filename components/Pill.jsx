@@ -30,7 +30,7 @@ export const Pill = ({ text, onRemove, className }) => {
   );
 };
 
-export const StoryPill = ({
+export const PathNode = ({
   isContextMenuEnabled = false,
   text,
   disabled = false,
@@ -112,7 +112,7 @@ export const StoryPill = ({
   );
 };
 
-export const StoryPathPill = ({ text, isInCurrentPath = false, className }) => {
+export const StaticPathNode = ({ text, isInCurrentPath = false, className }) => {
   const isEnd = text.split("").slice(-2).join("") === "||";
   const endText = isEnd ? text.split("").slice(0, -2).join("") : text;
 
