@@ -30,15 +30,7 @@ export const Pill = ({ text, onRemove, className }) => {
   );
 };
 
-export const PathNode = ({
-  isContextMenuEnabled = false,
-  text,
-  disabled = false,
-  isInCurrentPath = false,
-  onClick = () => {},
-  onMouseEnter = () => {},
-  className,
-}) => {
+export const PathNode = ({ text, isInCurrentPath = false, onClick = () => {}, onMouseEnter = () => {}, className }) => {
   const targetRef = useRef(null);
   const { contextMenu, closeMenu } = useContextMenu(targetRef);
   const handleShowPath = () => {
@@ -52,7 +44,7 @@ export const PathNode = ({
 
   return (
     <motion.div
-      ref={isContextMenuEnabled ? targetRef : null}
+      ref={targetRef}
       layout={true}
       initial={{ opacity: 0.3, y: -8 }}
       animate={{
@@ -60,10 +52,8 @@ export const PathNode = ({
         y: 0,
       }}
       transition={{ type: "spring", duration: 0.3 }}
-      className={`gap-2 mb-2 px-2 py-1 text-slate-800 rounded text-sm inline-flex items-center ${
-        isEnd
-          ? "bg-red-300 cursor-not-allowed"
-          : `${isInCurrentPath ? "bg-yellow-400 " : "bg-slate-300"} cursor-pointer hover:bg-green-400 ${className}`
+      className={`gap-2 mb-2 px-2 py-1 text-slate-800 rounded text-sm cursor-pointer inline-flex items-center ${
+        isEnd ? "bg-red-300" : `${isInCurrentPath ? "bg-yellow-400 " : "bg-slate-300"}  hover:bg-green-400 ${className}`
       }`}>
       <div>
         <p>{endText}</p>
@@ -75,7 +65,12 @@ export const PathNode = ({
         ) : null}
       </div>
       {contextMenu.visible && (
-        <ul
+        <motion.ul
+          initial={{ opacity: 0.3, y: -4 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
           onClick={(e) => {
             e.stopPropagation();
             // TODO: close context menu
@@ -91,22 +86,24 @@ export const PathNode = ({
             borderRadius: "3px",
             boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           }}>
-          <li
-            className="p-2 hover:bg-slate-200"
-            onClick={
-              disabled || isEnd
-                ? () => {}
-                : () => {
-                    onClick();
-                    closeMenu();
-                  }
-            }>
-            Generate new path from this point
-          </li>
+          {isEnd ? null : (
+            <li
+              className="p-2 hover:bg-slate-200"
+              onClick={
+                isEnd
+                  ? () => {}
+                  : () => {
+                      onClick();
+                      closeMenu();
+                    }
+              }>
+              Generate new path from this point
+            </li>
+          )}
           <li className="p-2 hover:bg-slate-200" onClick={handleShowPath}>
             View this story's path
           </li>
-        </ul>
+        </motion.ul>
       )}
     </motion.div>
   );
@@ -126,9 +123,7 @@ export const StaticPathNode = ({ text, isInCurrentPath = false, className }) => 
       }}
       transition={{ type: "spring", duration: 0.3 }}
       className={`gap-2 mb-2 px-2 py-1 text-slate-800 rounded text-sm inline-flex items-center ${
-        isEnd
-          ? "bg-red-300 cursor-not-allowed"
-          : `${isInCurrentPath ? "bg-yellow-400" : "bg-slate-300"} cursor-pointer ${className}`
+        isEnd ? "bg-red-300" : `${isInCurrentPath ? "bg-yellow-400" : "bg-slate-300"} ${className}`
       }`}>
       <div>
         <p>{endText}</p>

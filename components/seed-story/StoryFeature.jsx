@@ -31,10 +31,11 @@ export const StoryFeature = ({ pills, addNewPill, pathIsLoading, isLoading, setI
         </div>
       </div>
       <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white max-w-[75ch]">
+        <p>Click a block from your story below. Generate a new block or view the story path up to that point.</p>
+        <br />
         <p>
-          Click a block from your story below. Generate a new block or view the story path up to that point. The AI is
-          programmed to end a story when it sees fit. Once a path reaches the end you will not be able to continue down
-          that path.
+          The AI is programmed to end a story when it sees fit. Once a path reaches the end you will not be able to
+          continue down that path.
         </p>
       </div>
       <div className="grid grid-cols-2 gap-2">

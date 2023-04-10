@@ -11,10 +11,8 @@ export const PathTree = ({ pills, currentIds = [], addNewPill, highlightedPath, 
         {pills?.map((pill) => (
           <div key={pill.id}>
             <PathNode
-              isContextMenuEnabled={true}
               isInCurrentPath={highlightedPath.includes(pill.id)}
               onMouseEnter={() => setHighlightedPath([...currentIds, pill.id])}
-              onMouseLeave={() => setHighlightedPath([])}
               text={pill.text}
               onClick={() => addNewPill([...currentIds, pill.id])}
             />
@@ -26,8 +24,6 @@ export const PathTree = ({ pills, currentIds = [], addNewPill, highlightedPath, 
                   addNewPill={addNewPill}
                   highlightedPath={highlightedPath}
                   setHighlightedPath={setHighlightedPath}
-                  onMouseEnter={() => setHighlightedPath([...currentIds, pill.id])}
-                  onMouseLeave={() => setHighlightedPath([])}
                 />
               </div>
             )}
