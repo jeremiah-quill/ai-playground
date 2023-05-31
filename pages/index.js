@@ -10,27 +10,27 @@ export default function Home() {
       url: "/story-seed",
       comingSoon: false,
     },
+    // {
+    //   id: 2,
+    //   title: "Compressed",
+    //   description: "Compress your prompts, save tokens, and generate more with OpenAI's GPT-3.5",
+    //   url: "/compressed",
+    //   comingSoon: false,
+    // },
     {
       id: 2,
-      title: "Compressed",
-      description: "Compress your prompts, save tokens, and generate more with OpenAI's GPT-3.5",
-      url: "/compressed",
-      comingSoon: false,
-    },
-    {
-      id: 3,
       title: "React Auto-Complete",
       description: "Simple auto-complete component using OpenAI's GPT-3.5",
-      url: "#",
-      comingSoon: true,
+      url: "/suggest",
+      comingSoon: false,
     },
-    {
-      id: 4,
-      title: "Jotmail",
-      description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
-      url: "#",
-      comingSoon: true,
-    },
+    // {
+    //   id: 4,
+    //   title: "Jotmail",
+    //   description: "Jot down your thoughts and let OpenAI's GPT-3.5 generate a unique email for you.",
+    //   url: "#",
+    //   comingSoon: true,
+    // },
   ];
   return (
     <>
