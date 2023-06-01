@@ -4,7 +4,7 @@ import Head from "next/head";
 // react internals
 import { useState, useRef, useEffect } from "react";
 
-export default function () {
+export default function SuggestPage() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedText, setSuggestedText] = useState("");
